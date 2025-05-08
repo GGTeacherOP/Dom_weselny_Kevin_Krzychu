@@ -1,0 +1,46 @@
+body{
+    margin: 0;
+}
+.logo_header{
+    width: 125px;
+    height: 125px;
+}
+.logo_txt_header{
+    width: 125px;
+    height: 125px;
+    margin-top: 20px
+}
+a:link {
+        color: black;
+        background-color: transparent;
+        text-decoration: none;
+}
+a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+.img_header{
+    float: left;
+    padding-left: 20px;
+}
+.link_header{
+    padding-right: 100px;
+    margin-top: 62px;
+    float: right;
+}
+.header{
+    border: 2px solid black;
+    font-weight: 700;
+    line-height: 13px;
+    padding: 14px 30px;
+    text-decoration: none;
+}
+header{
+    height: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    border-bottom: 2px solid black;
+    color: black;
+    word-spacing: 10px
+}

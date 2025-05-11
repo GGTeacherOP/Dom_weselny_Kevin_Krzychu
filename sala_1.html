@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="index.css" class="css">
 </head>
 <body>
-    <header>
+     <header>
         <div class="img_header">
             <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
             <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
@@ -22,9 +22,30 @@
         </div>
     </header>
 
+    <div class="lewy">
+        <img src="sala_1.jpg" alt="">
+        <h2 class="o-nas">O naszej Sali</h2>
+        O nas Dzień Ślubu zapada w pamięci Młodej Pary na całe życie dlatego organizując przyjęcie weselne<br>
+    w Hotelu Sylwia*** mogą Państwo być pewni. Nasze wieloletnie doświadczenie w organizowaniu wszelkiego<br>
+    rodzaju przyjęć w połączeniu z malowniczym otoczeniem hotelu gwarantuje udaną zabawę do białego rana.
+    </div>
 
-
-
+    <div class="prawy">
+        <div class="reservation-box">
+            <h3>Zarezerwuj salę</h3>
+            <form>
+                <div class="form-group">
+                    <label for="reservation-date">Wybierz datę:</label>
+                    <input type="date" id="reservation-date" name="reservation-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Liczba gości:</label>
+                    <input type="number" id="guests" name="guests" min="1" required>
+                </div>
+                <button type="submit" class="reserve-button">Zarezerwuj</button>
+            </form>
+        </div>
+    </div>
 
     <footer class="page-footer">
     <div class="footer-content">
@@ -45,12 +66,7 @@
             <h3 class="footer-heading">Godziny otwarcia</h3>
             <p class="footer-text">Pon-Pt: 10:00 - 20:00<br>Sb-Nd: 11:00 - 18:00</p>
         </div>
-        
-        
     </div>
-    
-    
 </footer>
 </body>
 <script src="index.js"></script>
-</html>

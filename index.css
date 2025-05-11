@@ -98,5 +98,84 @@ header{
     color: #000;
 }
 
+.lewy, .prawy {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.lewy {
+    width: 60%;
+    padding: 20px;
+}
+
+.prawy {
+    width: 40%;
+    padding: 20px;
+}
+
+/* Dodatkowe style dla zawartości */
+.lewy img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.o-nas {
+    margin-bottom: 15px;
+}
+
+.reservation-box {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.reservation-box h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.reserve-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reserve-button:hover {
+    background-color: #45a049;
+}
+
+/* Responsywność - na mniejszych ekranach divy ułożą się jeden pod drugim */
+@media (max-width: 768px) {
+    .lewy, .prawy {
+        width: 100%;
+        display: block;
+    }
+}
 
 

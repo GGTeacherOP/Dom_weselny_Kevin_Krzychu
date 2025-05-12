@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursztynowy Pałac</title>
+    <link rel="stylesheet" href="index.css" class="css">
+</head>
+<body>
+     <header>
+        <div class="img_header">
+            <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
+            <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
+        </div>
+        <div class="link_header">
+            <a href="sale.html" style="word-spacing: 15px">Sale</a>
+            <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
+            <a href=""style="word-spacing: 15px">Kontakt</a>
+            <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
+            <button class="header" type="button">Panel Admina</button>
+            <button class="header" type="button">Moje Konto</button>
+        </div>
+    </header>
+
+    <div class="lewy">
+        <img src="sala_1.jpg" alt="">
+        <h2 class="o-nas">O naszej Sali</h2>
+        O nas Dzień Ślubu zapada w pamięci Młodej Pary na całe życie dlatego organizując przyjęcie weselne<br>
+    w Hotelu Sylwia*** mogą Państwo być pewni. Nasze wieloletnie doświadczenie w organizowaniu wszelkiego<br>
+    rodzaju przyjęć w połączeniu z malowniczym otoczeniem hotelu gwarantuje udaną zabawę do białego rana.
+    </div>
+
+    <div class="prawy">
+        <div class="reservation-box">
+            <h3>Zarezerwuj salę</h3>
+            <form>
+                <div class="form-group">
+                    <label for="reservation-date">Wybierz datę:</label>
+                    <input type="date" id="reservation-date" name="reservation-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Liczba gości:</label>
+                    <input type="number" id="guests" name="guests" min="1" required>
+                </div>
+                <button type="submit" class="reserve-button">Zarezerwuj</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 class="footer-heading">Bursztynowy Pałac</h3>
+            <p class="footer-text">Twoje Wesele na każdą okazję</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3 class="footer-heading">Kontakt</h3>
+            <ul class="footer-links">
+                <li><a href="tel:+48123456789" class="footer-link">+48 786 020 787</a></li>
+                <li><a href="mailto:kontakt@shangfurung.pl" class="footer-link">kontakt@bursztynowypalac.pl</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3 class="footer-heading">Godziny otwarcia</h3>
+            <p class="footer-text">Pon-Pt: 10:00 - 20:00<br>Sb-Nd: 11:00 - 18:00</p>
+        </div>
+    </div>
+</footer>
+</body>
+<script src="index.js"></script>

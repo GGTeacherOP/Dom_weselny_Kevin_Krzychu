@@ -198,3 +198,89 @@ body {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(44, 38, 13, 0.3);
         }
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: #f9f9f9;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .contact-info {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+        
+        .contact-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5em;
+            color: #868685;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-section {
+                flex-direction: column;
+            }
+            
+            .link_header {
+                padding-right: 20px;
+            }
+        }

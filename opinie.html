@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bursztynowy Pałac</title>
-    <link rel="stylesheet" href="index.css" class="css">
+    <link rel="stylesheet" href="opinie-style.css" class="css">
 </head>
 <body>
     <header>
@@ -20,7 +20,27 @@
             <button class="header" type="button">Panel Admina</button>
             <button class="header" type="button">Moje Konto</button>
         </div>
-    </header>   
+    </header>
+
+    <h1>Opinie naszych klientów</h1>
+    
+    <div class="dodaj-opinie">
+        <h2>Dodaj swoją opinię</h2>
+        <form id="form-opinia">
+            <input type="text" id="autor" placeholder="Twoje imię" required>
+            <div class="gwiazdki-ocena" id="gwiazdki-ocena">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+            </div>
+            <input type="hidden" id="ocena" value="0">
+            <textarea id="tresc" placeholder="Twoja opinia..." required></textarea>
+            <button type="submit">Dodaj opinię</button>
+        </form>
+    </div>
+    
 
 
 
@@ -49,8 +69,7 @@
         
     </div>
     
-    
 </footer>
 </body>
-<script src="index.js"></script>
+<script src="script-opinie.js"></script>
 </html>

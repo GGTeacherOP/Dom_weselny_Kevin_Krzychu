@@ -1,0 +1,104 @@
+body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .logo_header{
+            width: 125px;
+            height: 125px;
+        }
+        .logo_txt_header{
+            width: 125px;
+            height: 125px;
+            margin-top: 20px
+        }
+        a:link {
+                color: black;
+                background-color: transparent;
+                text-decoration: none;
+        }
+        a:visited {
+            color: black;
+            background-color: transparent;
+            text-decoration: none;
+        }
+        .img_header{
+            float: left;
+            padding-left: 20px;
+        }
+        .link_header{
+            padding-right: 100px;
+            margin-top: 62px;
+            float: right;
+        }
+        .header{
+            border: 2px solid black;
+            font-weight: 700;
+            line-height: 13px;
+            padding: 14px 30px;
+            text-decoration: none;
+        }
+        header{
+            height: 150px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-bottom: 2px solid black;
+            color: black;
+            word-spacing: 10px
+        }
+
+        .page-footer {
+            color: black;
+            padding: 40px 0 20px;
+            font-family: 'Montserrat', sans-serif;
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .footer-heading {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #222;
+            font-weight: 600;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-link {
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #000;
+        }

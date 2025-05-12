@@ -1,0 +1,227 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.logo_header{
+    width: 125px;
+    height: 125px;
+}
+.logo_txt_header{
+    width: 125px;
+    height: 125px;
+    margin-top: 20px
+}
+a:link {
+        color: black;
+        background-color: transparent;
+        text-decoration: none;
+}
+a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+.img_header{
+    float: left;
+    padding-left: 20px;
+}
+.link_header{
+    padding-right: 100px;
+    margin-top: 62px;
+    float: right;
+}
+.header{
+    border: 2px solid black;
+    font-weight: 700;
+    line-height: 13px;
+    padding: 14px 30px;
+    text-decoration: none;
+}
+header{
+    height: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    border-bottom: 2px solid black;
+    color: black;
+    word-spacing: 10px
+}
+
+.page-footer {
+    color: black;
+    padding: 40px 0 20px;
+    font-family: 'Montserrat', sans-serif;
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.footer-heading {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #222;
+    font-weight: 600;
+}
+
+.footer-text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-link {
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.8;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #000;
+}
+h1 {
+    text-align: center;
+    color: #777b7e;
+    margin-bottom: 30px;
+}
+
+.opinie-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Nowocześniejszy sposób odstępów */
+    margin-bottom: 40px;
+}
+
+.opinia {
+    flex: 1 1 calc(33.333% - 20px); /* Lepsza responsywność */
+    min-width: 280px; /* Minimalna szerokość przed zawinięciem */
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08); /* Delikatniejszy cień */
+    border: 1px solid #f0f0f0; /* Subtelne obramowanie */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.opinia:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.opinia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Lepsze wyrównanie pionowe */
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f5f5f5; /* Subtelna linia oddzielająca */
+}
+
+.autor {
+    font-weight: 600; /* Nie za grube */
+    color: #333;
+    font-size: 1.05em;
+}
+
+.data {
+    color: #999;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.gwiazdki {
+    color: #ffd700; /* Złoty kolor gwiazdek */
+    margin: 12px 0;
+    font-size: 1.2em;
+    letter-spacing: 2px; /* Lepsze rozłożenie gwiazdek */
+}
+
+.dodaj-opinie {
+    background: #646668;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.dodaj-opinie h2 {
+    margin-top: 0;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+button {
+    background: #e7e7e7;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #222222;
+}
+
+.gwiazdki-ocena {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.gwiazdki-ocena span {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ddd;
+    margin-right: 5px;
+}
+
+.gwiazdki-ocena span.active {
+    color: #f1c40f;
+}
+
+@media (max-width: 768px) {
+    .opinia {
+        width: 100%;
+    }
+}

@@ -1,56 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bursztynowy Pałac</title>
-    <link rel="stylesheet" href="index.css" class="css">
+    <title>Bursztynowy Pałac - Dom Weselny</title>
+    <meta name="description" content="Bursztynowy Pałac - wyjątkowe miejsce na Twoje wymarzone wesele. Odkryj nasze sale, galerię i opinie zadowolonych klientów.">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="img_header">
-            <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
-            <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
-        </div>
-        <div class="link_header">
-            <a href="sale.html" style="word-spacing: 15px">Sale</a>
-            <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
-            <a href=""style="word-spacing: 15px">Kontakt</a>
-            <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
-            <button class="header" type="button">Panel Admina</button>
-            <button class="header" type="button">Moje Konto</button>
-        </div>
-    </header>   
+    <div class="top-border"></div>
+    
+    <div class="main-container">
+        <header>
+            <div class="img_header">
+                <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
+                <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
+            </div>
+            <div class="link_header">
+                <a href="sale.html" style="word-spacing: 15px">Sale</a>
+                <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
+                <a href="kontakt.html"style="word-spacing: 15px">Kontakt</a>
+                <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
+                <button class="header" type="button">Panel Admina</button>
+                <button class="header" type="button">Moje Konto</button>
+            </div>
+        </header>
 
+        <main class="main-content">
+            <!-- Sekcja powitalna - pełna szerokość -->
+            <section class="hero-section">
+                <div class="hero-overlay">
+                    <h1>Bursztynowy Pałac</h1>
+                    <p>Twój wymarzony dzień w wyjątkowej scenerii</p>
+                    <a href="sale.html" class="hero-btn">Poznaj nasze sale</a>
+                </div>
+            </section>
 
+            <!-- Reszta zawartości w kontenerze -->
+            <div class="content-container">
+                <!-- Sekcja z salami -->
+                <section class="featured-rooms">
+                    <h2>Nasze Sale</h2>
+                    <p class="section-subtitle">Odkryj nasze najpopularniejsze przestrzenie</p>
+                    
+                    <div class="rooms-grid">
+                        <!-- Sala 1 -->
+                        <div class="room-card">
+                            <img src="s1.jpeg" alt="Sala Konferencyjna">
+                            <div class="room-info">
+                                <h3>Sala Konferencyjna</h3>
+                                <p>Idealna na spotkania biznesowe i szkolenia. Wyposażona w nowoczesny sprzęt multimedialny.</p>
+                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Sala 2 -->
+                        <div class="room-card">
+                            <img src="s2.jpg" alt="Sala Bankietowa">
+                            <div class="room-info">
+                                <h3>Sala Bankietowa</h3>
+                                <p>Przestronna sala doskonała na wesela, przyjęcia i inne uroczystości. Może pomieścić do 150 osób.</p>
+                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Sala 3 -->
+                        <div class="room-card">
+                            <img src="s3.jpg" alt="Sala Szkoleniowa">
+                            <div class="room-info">
+                                <h3>Sala Szkoleniowa</h3>
+                                <p>Komfortowa przestrzeń do prowadzenia warsztatów i kursów. Wyposażona w wygodne fotele i flipcharty.</p>
+                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="all-rooms-link">
+                        <a href="sale.html" class="see-all-btn">Zobacz wszystkie sale</a>
+                    </div>
+                </section>
 
+                <!-- Sekcja kontaktowa -->
+                <section class="contact-section">
+                    <div class="contact-container">
+                        <div class="contact-info">
+                            <h2>Skontaktuj się z nami</h2>
+                            <p>Masz pytania? Chcesz zarezerwować termin? Jesteśmy do Twojej dyspozycji!</p>
+                            
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span>+48 786 020 787</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>kontakt@bursztynowypalac.pl</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>ul. Weselna 123, 00-001 Warszawa</span>
+                                </div>
+                            </div>
+                            
+                            <a href="kontakt.html" class="contact-btn">Formularz kontaktowy</a>
+                        </div>
+                        
+                        <div class="contact-image">
+                            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kontakt">
+                        </div>
+                    </div>
+                </section>
 
+                <!-- Sekcja z opiniami -->
+                <section class="testimonials-section">
+                    <h2>Opinie naszych klientów</h2>
+                    <p class="section-subtitle">Poznaj doświadczenia innych par</p>
+                    
+                    <div class="testimonials-grid">
+                        <!-- Opinia 1 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <span class="author">Anna i Marek</span>
+                                <span class="date">15.05.2023</span>
+                            </div>
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"Wspaniałe miejsce na nasze wesele! Profesjonalna obsługa, piękna sala i pyszne jedzenie. Wszystko było idealnie zorganizowane."</p>
+                        </div>
+                        
+                        <!-- Opinia 2 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <span class="author">Katarzyna i Tomasz</span>
+                                <span class="date">22.08.2023</span>
+                            </div>
+                            <div class="rating">★★★★★</div>
+                            <p class="testimonial-text">"Najlepsza decyzja jaką podjęliśmy! Cała obsługa była bardzo pomocna, a sala wyglądała magicznie. Polecamy z całego serca!"</p>
+                        </div>
+                        
+                        <!-- Opinia 3 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <span class="author">Magdalena i Piotr</span>
+                                <span class="date">10.06.2023</span>
+                            </div>
+                            <div class="rating">★★★★☆</div>
+                            <p class="testimonial-text">"Piękne miejsce, wspaniała atmosfera. Jedynie parking mógłby być większy, ale to drobny szczegół w porównaniu z całą resztą."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="all-testimonials-link">
+                        <a href="opinie.html" class="see-all-btn">Zobacz wszystkie opinie</a>
+                    </div>
+                </section>
+            </div>
+        </main>
 
-    <footer class="page-footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3 class="footer-heading">Bursztynowy Pałac</h3>
-            <p class="footer-text">Twoje Wesele na każdą okazję</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3 class="footer-heading">Kontakt</h3>
-            <ul class="footer-links">
-                <li><a href="tel:+48123456789" class="footer-link">+48 786 020 787</a></li>
-                <li><a href="mailto:kontakt@shangfurung.pl" class="footer-link">kontakt@bursztynowypalac.pl</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-section">
-            <h3 class="footer-heading">Godziny otwarcia</h3>
-            <p class="footer-text">Pon-Pt: 10:00 - 20:00<br>Sb-Nd: 11:00 - 18:00</p>
-        </div>
-        
-        
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Bursztynowy Pałac</h3>
+                    <p class="footer-text">Twoje wymarzone wesele w wyjątkowej scenerii. Z nami stworzysz niezapomniane chwile.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">Kontakt</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+48786020787" class="footer-link"><i class="fas fa-phone-alt"></i> +48 786 020 787</a></li>
+                        <li><a href="mailto:kontakt@bursztynowypalac.pl" class="footer-link"><i class="fas fa-envelope"></i> kontakt@bursztynowypalac.pl</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ul. Weselna 123, 00-001 Warszawa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">Godziny otwarcia</h3>
+                    <p class="footer-text"><i class="far fa-clock"></i> Pon-Pt: 10:00 - 20:00</p>
+                    <p class="footer-text"><i class="far fa-clock"></i> Sb-Nd: 11:00 - 18:00</p>
+                    <p class="footer-text">Zapraszamy również po godzinach po wcześniejszym umówieniu.</p>
+                </div>
+            </div>
+        </footer>
     </div>
-    
-    
-</footer>
 </body>
-<script src="index.js"></script>
 </html>

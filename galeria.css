@@ -368,6 +368,7 @@ header {
 
 .footer-link:hover {
     color: var(--amber-darker);
+
 }
 
 /* Responsywność */
@@ -423,4 +424,5 @@ header {
     .section-title {
         font-size: 1.4rem;
     }
+
 }

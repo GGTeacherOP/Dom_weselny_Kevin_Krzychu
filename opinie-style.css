@@ -17,6 +17,20 @@ body {
     background-color: var(--bg-light);
 }
 
+/* Header styles - zaktualizowane aby pasowało do sale.css */
+header {
+    height: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    border-bottom: 2px solid var(--amber-dark);
+    color: var(--text-dark);
+    background-color: white;
+    padding: 0 20px;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .logo_header {
     width: 125px;
     height: 125px;
@@ -28,37 +42,45 @@ body {
     margin-top: 20px;
 }
 
-a:link, a:visited {
-    color: var(--text-dark);
-    background-color: transparent;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: var(--amber-darker);
-}
-
 .img_header {
     float: left;
     padding-left: 20px;
 }
 
 .link_header {
-    padding-right: 100px;
+    padding-right: 20px;
     margin-top: 62px;
     float: right;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.link_header a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.link_header a:hover {
+    color: var(--amber-darker);
 }
 
 .header {
     border: 2px solid var(--amber-dark);
     font-weight: 700;
-    line-height: 13px;
-    padding: 14px 30px;
+    padding: 14px 25px;
     text-decoration: none;
     color: var(--text-dark);
     transition: all 0.3s;
     background-color: var(--amber-light);
+    display: inline-block;
+    margin-left: 10px;
+    line-height: normal;
+    cursor: pointer;
 }
 
 .header:hover {
@@ -66,14 +88,50 @@ a:hover {
     border-color: var(--amber-darker);
 }
 
-header {
-    height: 150px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    border-bottom: 2px solid var(--amber-dark);
-    color: var(--text-dark);
-    word-spacing: 10px;
-    background-color: white;
+/* Responsywność - zaktualizowane aby pasowało do sale.css */
+@media (max-width: 768px) {
+    .link_header {
+        padding-right: 10px;
+        gap: 10px;
+        margin-top: 50px;
+    }
+    
+    header {
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .img_header {
+        float: none;
+        display: flex;
+        padding-left: 0;
+        justify-content: center;
+    }
+    
+    .link_header {
+        float: none;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .header {
+        padding: 10px 15px;
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .link_header {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .header {
+        margin-left: 0;
+        margin-top: 5px;
+    }
 }
 
 .page-footer {

@@ -14,8 +14,9 @@
             color: var(--text-dark);
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0px;
             background-color: var(--bg-light);
+            max-width: none; /* Usuwamy ograniczenie szerokości */
         }
         
         .logo_header{
@@ -62,6 +63,7 @@
             background-color: var(--amber-light);
         }
         
+        
         .header:hover {
             background-color: var(--amber);
             border-color: var(--amber-darker);
@@ -71,17 +73,21 @@
             height: 150px;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            border-bottom: 2px solid var(--amber-dark);
+            border-bottom: 3.5px solid var(--amber-dark);
             color: var(--text-dark);
             word-spacing: 10px;
             background-color: white;
+            width: 100%; /* Dodaj to */
+             max-width: none; /* Dodaj to */
+             margin: 0; /* Dodaj to */
+             
         }
 
         .page-footer {
             color: var(--text-dark);
             padding: 40px 0 20px;
             font-family: 'Montserrat', sans-serif;
-            border-top: 2px solid var(--amber);
+            border-top: 3.5px solid var(--amber);
             background-color: white;
             margin-top: 40px;
         }

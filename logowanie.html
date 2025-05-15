@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursztynowy Pałac - Logowanie</title>
+    <link rel="stylesheet" href="kontakt.css">
+</head>
+<body>
+<header>
+        <div class="img_header">
+            <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
+            <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
+        </div>
+        <div class="link_header">
+            <a href="index.html" style="word-spacing: 0px;">Strona Glówna</a>
+            <a href="sale.html">Sale</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="kontakt.html">Kontakt</a>
+            <a href="opinie.html">Opinie</a>
+            <button class="header" type="button">Panel Admina</button>
+            <button class="header" type="button">Moje Konto</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Zaloguj się</div>
+                <div class="auth-tab" data-tab="register">Zarejestruj się</div>
+            </div>
+
+            <div id="login" class="auth-content active">
+                <h2>Logowanie</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Adres e-mail</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Hasło</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                        <div id="loginError" class="error-message">Nieprawidłowy email lub hasło</div>
+                    </div>
+                    <button type="submit" class="submit-btn">Zaloguj się</button>
+                    <div class="form-footer">
+                        Nie masz konta? <a href="#" class="switch-tab" data-tab="register">Zarejestruj się</a>
+                    </div>
+                </form>
+            </div>
+
+            <div id="register" class="auth-content">
+                <h2>Rejestracja</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Imię i nazwisko</label>
+                        <input type="text" id="registerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Adres e-mail</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
+                        <div id="emailError" class="error-message">Ten email jest już zarejestrowany</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Numer telefonu</label>
+                        <input type="tel" id="registerPhone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Hasło</label>
+                        <input type="password" id="registerPassword" class="form-control" required>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrength"></div>
+                        </div>
+                        <div id="passwordError" class="error-message">Hasło musi mieć co najmniej 8 znaków</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Potwierdź hasło</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required>
+                        <div id="confirmError" class="error-message">Hasła nie są identyczne</div>
+                    </div>
+                    <button type="submit" class="submit-btn">Zarejestruj się</button>
+                    <div class="form-footer">
+                        Masz już konto? <a href="#" class="switch-tab" data-tab="login">Zaloguj się</a>
+                    </div>
+                    <div id="registerSuccess" class="success-message">Rejestracja zakończona sukcesem! Możesz się teraz zalogować.</div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-heading">Bursztynowy Pałac</h3>
+                <p class="footer-text">Twoje wymarzone wesele w wyjątkowej scenerii. Z nami stworzysz niezapomniane chwile.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-heading">Kontakt</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+48786020787" class="footer-link"><i class="fas fa-phone-alt"></i> +48 786 020 787</a></li>
+                    <li><a href="mailto:kontakt@bursztynowypalac.pl" class="footer-link"><i class="fas fa-envelope"></i> kontakt@bursztynowypalac.pl</a></li>
+                    <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ul. Weselna 123, 00-001 Warszawa</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-heading">Godziny otwarcia</h3>
+                <p class="footer-text"><i class="far fa-clock"></i> Pon-Pt: 10:00 - 20:00</p>
+                <p class="footer-text"><i class="far fa-clock"></i> Sb-Nd: 11:00 - 18:00</p>
+                <p class="footer-text">Zapraszamy również po godzinach po wcześniejszym umówieniu.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

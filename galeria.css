@@ -18,9 +18,11 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     padding: 20px;
     background-color: white;
+    max-width: none;
+
 }
 
 /* Header styles */
@@ -29,15 +31,26 @@ header {
     height: 150px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    border-bottom: 2px solid var(--amber-dark);
     color: var(--text-dark);
+    word-spacing: 10px;
     background-color: white;
+    position: relative;
     padding: 0 20px;
-    box-sizing: border-box;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
+    border-bottom: none;
 }
 
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -20px;
+    right: -20px;
+    height: 3.5px;
+    background-color: var(--amber-dark);
+    width: 100%;
+}
 .logo_header {
     width: 125px;
     height: 125px;
@@ -49,13 +62,14 @@ header {
     margin-top: 20px;
 }
 
+
 .img_header {
     float: left;
     padding-left: 20px;
 }
 
 .link_header {
-    padding-right: 20px;
+    padding-right: 100px;
     margin-top: 62px;
     float: right;
     display: flex;
@@ -72,46 +86,37 @@ header {
     white-space: nowrap;
 }
 
-.link_header a:hover {
-    color: var(--amber-darker);
-}
-
 .header {
     border: 2px solid var(--amber-dark);
     font-weight: 700;
-    padding: 14px 25px;
+    line-height: 13px;
+    padding: 14px 30px;
     text-decoration: none;
     color: var(--text-dark);
     transition: all 0.3s;
     background-color: var(--amber-light);
     display: inline-block;
     margin-left: 10px;
-    line-height: normal;
     cursor: pointer;
-}
-
-.header:hover {
-    background-color: var(--amber);
-    border-color: var(--amber-darker);
 }
 
 /* Responsywność - zaktualizowane aby pasowało do sale.css */
 @media (max-width: 768px) {
-    .link_header {
-        padding-right: 10px;
-        gap: 10px;
-        margin-top: 50px;
-    }
-    
     header {
         height: auto;
-        padding: 10px 0;
+        padding-bottom: 20px;
     }
     
     .img_header {
         float: none;
-        display: flex;
+        text-align: center;
         padding-left: 0;
+    }
+    
+    .link_header {
+        float: none;
+        margin-top: 20px;
+        padding-right: 0;
         justify-content: center;
     }
     

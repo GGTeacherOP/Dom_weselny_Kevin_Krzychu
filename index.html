@@ -23,8 +23,8 @@
                 <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
                 <a href="kontakt.html"style="word-spacing: 15px">Kontakt</a>
                 <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
-                <button class="header" type="button">Panel Admina</button>
-                <form action="logowanie.html" method="get">
+                <a href="<?php echo isset($_SESSION['logged_in']) && $_SESSION['role'] === 'admin' ? 'panel_admina.php' : 'login.php'; ?>" class="header-link">Panel Admina</a>
+                <form action="login.php" method="get">
                     <button class="header" type="submit">Moje Konto</button>
                 </form>
             </div>

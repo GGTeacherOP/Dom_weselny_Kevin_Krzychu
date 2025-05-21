@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -23,10 +26,40 @@
                 <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
                 <a href="kontakt.html"style="word-spacing: 15px">Kontakt</a>
                 <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
-                <a href="<?php echo isset($_SESSION['logged_in']) && $_SESSION['role'] === 'admin' ? 'panel_admina.php' : 'login.php'; ?>" class="header-link">Panel Admina</a>
-                <form action="login.php" method="get">
-                    <button class="header" type="submit">Moje Konto</button>
-                </form>
+                
+                <?php if (isset($_SESSION['logged_in'])): ?>
+                    <span style="margin-right: 15px; color: var(--amber-darker);">Witaj, <?php echo htmlspecialchars($_SESSION['imie']); ?>!</span>
+                    <?php 
+                    $panel_link = '';
+                    switch($_SESSION['role']) {
+                        case 'admin':
+                            $panel_link = 'panel_admina.php';
+                            break;
+                        case 'manager':
+                            $panel_link = 'panel_managera.php';
+                            break;
+                        case 'klient':
+                            $panel_link = 'panel_klienta.php';
+                            break;
+                        case 'kelner':
+                            $panel_link = 'panel_kelnera.php';
+                            break;
+                        case 'sprzataczka':
+                            $panel_link = 'panel_sprzataczki.php';
+                            break;
+                        case 'kucharz':
+                            $panel_link = 'panel_kucharza.php';
+                            break;
+                        default:
+                            $panel_link = 'panel_klienta.php';
+                    }
+                    ?>
+                    <a href="<?php echo $panel_link; ?>" class="header-link">Mój Panel</a>
+                    <a href="logout.php" class="header-link">Wyloguj</a>
+                <?php else: ?>
+                    <a href="login.php" class="header-link">Zaloguj się</a>
+                    <a href="login.php" class="header-link">Rejestracja</a>
+                <?php endif; ?>
             </div>
         </header>
 

@@ -4,8 +4,8 @@ session_start();
 // Połączenie z bazą danych
 $host = '127.0.0.1:3307';
 $dbname = 'dom_weselny';
-$username = 'root'; // Zmień na swoje dane
-$password = ''; // Zmień na swoje dane
+$username = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -24,13 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($user && password_verify($password, $user['haslo'])) {
-        $_SESSION['user_id'] = $user['uzytkownik_id'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['rola'];
-        $_SESSION['logged_in'] = true;
-        
-        header("Location: index.html");
-        exit();
+    $_SESSION['user_id'] = $user['uzytkownik_id'];
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['role'] = $user['rola'];
+    $_SESSION['logged_in'] = true;
+    $_SESSION['imie'] = $user['imie']; // Dodaj imię do sesji
+    $_SESSION['nazwisko'] = $user['nazwisko']; // Dodaj nazwisko do sesji
+    
+    header("Location: index.php");
+    exit();
+
     } else {
         $login_error = "Nieprawidłowy email lub hasło";
     }
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $_SESSION['role'] = 'klient';
         $_SESSION['logged_in'] = true;
         
-        header("Location: index.html");
+        header("Location: index.php"); // Zmiana z index.html na index.php
         exit();
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {

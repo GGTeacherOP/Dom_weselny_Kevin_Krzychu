@@ -17,6 +17,14 @@ body {
     padding: 0;
     background-color: var(--white);
 }
+.link_header span {
+    margin-right: 15px;
+    color: var(--amber-darker);
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 62px;
+}
 
 /* Top border - ciągła żółta linia */
 .top-border {

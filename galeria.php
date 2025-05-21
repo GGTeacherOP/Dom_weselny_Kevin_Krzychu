@@ -1,34 +1,65 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bursztynowy Pałac - Galeria</title>
-    <meta name="description" content="Galeria naszego domu weselnego - zobacz piękne sale, ogrody i wspomnienia z poprzednich wesel">
+    <title>Bursztynowy Pałac - Dom Weselny</title>
+    <meta name="description" content="Bursztynowy Pałac - wyjątkowe miejsce na Twoje wymarzone wesele. Odkryj nasze sale, galerię i opinie zadowolonych klientów.">
     <link rel="stylesheet" href="galeria.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Lewy banner -->
-    <div class="side-banner left"></div>
+    <div class="top-border"></div>
     
-    <!-- Główna zawartość -->
-    <div class="main-content">
+    <div class="main-container">
         <header>
             <div class="img_header">
-                <a href="index.html"><img class="logo_header" src="logo.png" alt="Bursztynowy Pałac"></a>
-                <img class="logo_txt_header" src="logo_txt.png" alt="Dom Weselny">
+                <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
+                <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
             </div>
             <div class="link_header">
-                <a href="sale.html">Sale</a>
-                <a href="galeria.html">Galeria</a>
-                <a href="kontakt.html">Kontakt</a>
-                <a href="opinie.html">Opinie</a>
-                <a href="<?php echo isset($_SESSION['logged_in']) && $_SESSION['role'] === 'admin' ? 'panel_admina.php' : 'login.php'; ?>" class="header-link">Panel Admina</a>
-                <form action="login.php" method="get">
-                    <button class="header" type="submit">Moje Konto</button>
-                </form>
+                <a href="sale.php" style="word-spacing: 15px">Sale</a>
+                <a href="galeria.php"style="word-spacing: 15px">Galeria</a>
+                <a href="kontakt.php"style="word-spacing: 15px">Kontakt</a>
+                <a href="opinie.php"style="word-spacing: 15px">Opinie</a>
+                
+                <?php if (isset($_SESSION['logged_in'])): ?>
+                    <span style="margin-right: 15px; color: var(--amber-darker);">Witaj, <?php echo htmlspecialchars($_SESSION['imie']); ?>!</span>
+                    <?php 
+                    $panel_link = '';
+                    switch($_SESSION['role']) {
+                        case 'admin':
+                            $panel_link = 'panel_admina.php';
+                            break;
+                        case 'manager':
+                            $panel_link = 'panel_managera.php';
+                            break;
+                        case 'klient':
+                            $panel_link = 'panel_klienta.php';
+                            break;
+                        case 'kelner':
+                            $panel_link = 'panel_kelnera.php';
+                            break;
+                        case 'sprzataczka':
+                            $panel_link = 'panel_sprzataczki.php';
+                            break;
+                        case 'kucharz':
+                            $panel_link = 'panel_kucharza.php';
+                            break;
+                        default:
+                            $panel_link = 'panel_klienta.php';
+                    }
+                    ?>
+                    <a href="<?php echo $panel_link; ?>" class="header-link">Mój Panel</a>
+                    <a href="logout.php" class="header-link">Wyloguj</a>
+                <?php else: ?>
+                    <a href="login.php" class="header-link">Zaloguj się</a>
+                    <a href="login.php" class="header-link">Rejestracja</a>
+                <?php endif; ?>
             </div>
         </header>
         

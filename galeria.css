@@ -18,6 +18,7 @@ body {
 }
 
 /* Nagłówek */
+/* Nagłówek */
 header {
     height: 150px;
     font-weight: 700;
@@ -26,6 +27,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 20px;
 }
 

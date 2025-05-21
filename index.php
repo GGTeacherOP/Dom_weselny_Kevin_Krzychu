@@ -18,14 +18,14 @@ session_start();
     <div class="main-container">
         <header>
             <div class="img_header">
-                <a href="index.html"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
+                <a href="index.php"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
                 <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
             </div>
             <div class="link_header">
-                <a href="sale.html" style="word-spacing: 15px">Sale</a>
-                <a href="galeria.html"style="word-spacing: 15px">Galeria</a>
-                <a href="kontakt.html"style="word-spacing: 15px">Kontakt</a>
-                <a href="opinie.html"style="word-spacing: 15px">Opinie</a>
+                <a href="sale.php" style="word-spacing: 15px">Sale</a>
+                <a href="galeria.php"style="word-spacing: 15px">Galeria</a>
+                <a href="kontakt.php"style="word-spacing: 15px">Kontakt</a>
+                <a href="opinie.php"style="word-spacing: 15px">Opinie</a>
                 
                 <?php if (isset($_SESSION['logged_in'])): ?>
                     <span style="margin-right: 15px; color: var(--amber-darker);">Witaj, <?php echo htmlspecialchars($_SESSION['imie']); ?>!</span>

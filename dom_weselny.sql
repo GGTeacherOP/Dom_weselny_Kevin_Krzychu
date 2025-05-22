@@ -163,13 +163,10 @@ INSERT INTO `uzytkownicy` (`uzytkownik_id`, `email`, `haslo`, `imie`, `nazwisko`
 (5, 'sprzataczka@domweselny.pl', '$2y$10$HhidzQo5vA5H5jQ7GJBLX.3U0jY5QZ9XkQZ9XkQZ9XkQZ9XkQZ9Xk', 'Katarzyna', 'Lewandowska', '333222111', 'ul. Sprzatacza 5, 00-005 Warszawa', 'sprzataczka', '2025-05-19 23:37:40', 1, 3000.00, 'Pracownik sprzatajacy', '2023-01-10'),
 (6, 'klient1@gmail.com', '$2y$10$HhidzQo5vA5H5jQ7GJBLX.3U0jY5QZ9XkQZ9XkQZ9XkQZ9XkQZ9Xk', 'Michal', 'Zielinski', '777888999', 'ul. Klienta 6, 00-006 Warszawa', 'klient', '2025-05-19 23:37:40', 1, NULL, NULL, NULL),
 (7, 'klient2@wp.pl', '$2y$10$HhidzQo5vA5H5jQ7GJBLX.3U0jY5QZ9XkQZ9XkQZ9XkQZ9XkQZ9Xk', 'Alicja', 'Wojcik', '444555666', 'ul. Weselna 7, 00-007 Warszawa', 'klient', '2025-05-19 23:37:40', 1, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `zadania`
 --
-
 CREATE TABLE `zadania` (
   `zadanie_id` int(11) NOT NULL,
   `tytul` varchar(100) NOT NULL,
@@ -180,28 +177,23 @@ CREATE TABLE `zadania` (
   `status` enum('nowe','w trakcie','zakonczone','anulowane') DEFAULT 'nowe',
   `priorytet` enum('niski','sredni','wysoki') DEFAULT 'sredni'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
-
 --
 -- Dumping data for table `zadania`
 --
-
 INSERT INTO `zadania` (`zadanie_id`, `tytul`, `opis`, `przydzielony_uzytkownik_id`, `data_rozpoczecia`, `data_zakonczenia`, `status`, `priorytet`) VALUES
 (1, 'Przygotowanie sali Biala', 'Ustawienie stolow i krzeseł na wesele 15.08', 5, '2023-08-14', '2023-08-14', 'zakonczone', 'wysoki'),
 (2, 'Zamowienie kwiatow', 'Zamowic kwiaty na stol glowny na 20.09', 2, '2023-09-10', '2023-09-15', 'zakonczone', 'sredni'),
 (3, 'Sprzatanie po imprezie', 'Sprzatanie sali Zlota po weselu', 5, '2023-09-21', NULL, 'nowe', 'wysoki'),
 (4, 'Kontrola naglosnienia', 'Sprawdzic system naglosnienia w sali Szafir', 3, '2023-11-01', NULL, 'w trakcie', 'sredni');
-
 --
 -- Indexes for dumped tables
 --
-
 --
 -- Indexes for table `finanse`
 --
 ALTER TABLE `finanse`
   ADD PRIMARY KEY (`transakcja_id`),
   ADD KEY `rezerwacja_id` (`rezerwacja_id`);
-
 --
 -- Indexes for table `opinie`
 --
@@ -209,7 +201,6 @@ ALTER TABLE `opinie`
   ADD PRIMARY KEY (`opinia_id`),
   ADD KEY `uzytkownik_id` (`uzytkownik_id`),
   ADD KEY `rezerwacja_id` (`rezerwacja_id`);
-
 --
 -- Indexes for table `rezerwacje`
 --
@@ -220,13 +211,11 @@ ALTER TABLE `rezerwacje`
   ADD KEY `idx_uzytkownik` (`uzytkownik_id`),
   ADD KEY `idx_sala` (`sala_id`),
   ADD KEY `idx_status` (`status`);
-
 --
 -- Indexes for table `sale`
 --
 ALTER TABLE `sale`
   ADD PRIMARY KEY (`sala_id`);
-
 --
 -- Indexes for table `uzytkownicy`
 --
@@ -235,71 +224,59 @@ ALTER TABLE `uzytkownicy`
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `idx_rola` (`rola`),
   ADD KEY `idx_email` (`email`);
-
 --
 -- Indexes for table `zadania`
 --
 ALTER TABLE `zadania`
   ADD PRIMARY KEY (`zadanie_id`),
   ADD KEY `przydzielony_uzytkownik_id` (`przydzielony_uzytkownik_id`);
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
 --
 -- AUTO_INCREMENT for table `finanse`
 --
 ALTER TABLE `finanse`
   MODIFY `transakcja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `opinie`
 --
 ALTER TABLE `opinie`
   MODIFY `opinia_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
   MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
   MODIFY `sala_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   MODIFY `uzytkownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `zadania`
 --
 ALTER TABLE `zadania`
   MODIFY `zadanie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- Constraints for dumped tables
 --
-
 --
 -- Constraints for table `finanse`
 --
 ALTER TABLE `finanse`
   ADD CONSTRAINT `finanse_ibfk_1` FOREIGN KEY (`rezerwacja_id`) REFERENCES `rezerwacje` (`rezerwacja_id`) ON DELETE CASCADE;
-
 --
 -- Constraints for table `opinie`
 --
 ALTER TABLE `opinie`
   ADD CONSTRAINT `opinie_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `uzytkownicy` (`uzytkownik_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `opinie_ibfk_2` FOREIGN KEY (`rezerwacja_id`) REFERENCES `rezerwacje` (`rezerwacja_id`) ON DELETE CASCADE;
-
 --
 -- Constraints for table `rezerwacje`
 --
@@ -307,14 +284,12 @@ ALTER TABLE `rezerwacje`
   ADD CONSTRAINT `rezerwacje_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `uzytkownicy` (`uzytkownik_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `rezerwacje_ibfk_2` FOREIGN KEY (`sala_id`) REFERENCES `sale` (`sala_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `rezerwacje_ibfk_3` FOREIGN KEY (`pracownik_id`) REFERENCES `uzytkownicy` (`uzytkownik_id`) ON DELETE SET NULL;
-
 --
 -- Constraints for table `zadania`
 --
 ALTER TABLE `zadania`
   ADD CONSTRAINT `zadania_ibfk_1` FOREIGN KEY (`przydzielony_uzytkownik_id`) REFERENCES `uzytkownicy` (`uzytkownik_id`) ON DELETE CASCADE;
 COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

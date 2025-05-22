@@ -1,70 +1,67 @@
-// Obsługa gwiazdek przy dodawaniu opinii
-const gwiazdki = document.querySelectorAll('#gwiazdki-ocena span');
-const ocenaInput = document.getElementById('ocena');
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicjalizacja gwiazdek
+    const stars = document.querySelectorAll('#gwiazdki-ocena span');
+    const ratingInput = document.getElementById('ocena');
 
-gwiazdki.forEach(gwiazdka => {
-    gwiazdka.addEventListener('click', function() {
-        const wartosc = parseInt(this.getAttribute('data-value'));
-        ocenaInput.value = wartosc;
-        
-        gwiazdki.forEach((g, index) => {
-            if (index < wartosc) {
-                g.classList.add('active');
-                g.textContent = '★';
-            } else {
-                g.classList.remove('active');
-                g.textContent = '☆';
+    // Sprawdzamy, czy gwiazdki i pole oceny istnieją na stronie
+    if (stars.length > 0 && ratingInput) {
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                ratingInput.value = value;
+
+                // Aktualizacja wyglądu gwiazdek
+                stars.forEach((s, idx) => {
+                    s.textContent = idx < value ? '★' : '☆';
+                    s.style.color = idx < value ? '#FFA000' : '#FFE7B3';
+                });
+            });
+        });
+    }
+
+    // Obsługa formularza z AJAX
+    const opinionForm = document.getElementById('form-opinia');
+
+    if (opinionForm) { // Upewnij się, że formularz istnieje zanim dodasz nasłuchiwacz
+        opinionForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Zapobiegaj domyślnej wysyłce formularza
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const formData = new FormData(this);
+            formData.append('submit_opinion', '1'); // Dodaj flagę submit_opinion
+
+            // Wizualna informacja o wysyłaniu
+            if (submitBtn) { // Upewnij się, że przycisk istnieje
+                // Zapisz oryginalny tekst przycisku
+                const originalBtnText = submitBtn.innerHTML;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Wysyłanie...</span>';
+
+                fetch('opinie.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Nie parsuj odpowiedzi jako JSON, bo PHP zwraca cały HTML
+                    return response.text();
+                })
+                .then(() => {
+                    // Przeładowanie strony po dodaniu opinii
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Wystąpił błąd podczas wysyłania opinii: ' + error.message);
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText; // Przywróć oryginalny tekst
+                    }
+                });
             }
         });
-    });
-});
-
-// Obsługa formularza
-document.getElementById('form-opinia').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const autor = document.getElementById('autor').value;
-    const ocena = parseInt(ocenaInput.value);
-    const tresc = document.getElementById('tresc').value;
-    const data = new Date().toLocaleDateString('pl-PL');
-    
-    if (ocena === 0) {
-        alert('Proszę wystawić ocenę!');
-        return;
     }
-    
-    // Tworzymy nową opinię
-    const opiniaElement = document.createElement('div');
-    opiniaElement.className = 'opinia';
-    
-    let gwiazdkiHTML = '';
-    for (let i = 1; i <= 5; i++) {
-        if (i <= ocena) {
-            gwiazdkiHTML += '★';
-        } else {
-            gwiazdkiHTML += '☆';
-        }
-    }
-    
-    opiniaElement.innerHTML = `
-        <div class="opinia-header">
-            <span class="autor">${autor}</span>
-            <span class="data">${data}</span>
-        </div>
-        <div class="gwiazdki">${gwiazdkiHTML}</div>
-        <p>${tresc}</p>
-    `;
-    
-    // Dodajemy nową opinię na początek kontenera
-    document.getElementById('opinie-container').prepend(opiniaElement);
-    
-    // Czyścimy formularz
-    this.reset();
-    ocenaInput.value = '0';
-    gwiazdki.forEach(g => {
-        g.classList.remove('active');
-        g.textContent = '☆';
-    });
-    
-    alert('Dziękujemy za dodanie opinii!');
 });

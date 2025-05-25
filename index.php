@@ -1,6 +1,30 @@
 <?php
 session_start();
+require_once 'index_config.php';
+
+// Funkcja do bezpiecznego pobierania danych
+function fetchData($conn, $query, $params = []) {
+    $stmt = $conn->prepare($query);
+    if ($params) {
+        $types = str_repeat('s', count($params));
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Pobieranie danych o salach
+$sale = fetchData($conn, "SELECT * FROM sale LIMIT 3");
+
+// Pobieranie opinii z danymi użytkowników
+$opinie = fetchData($conn, "SELECT o.*, u.imie, u.nazwisko 
+                          FROM opinie o 
+                          JOIN uzytkownicy u ON o.uzytkownik_id = u.uzytkownik_id 
+                          WHERE o.zatwierdzona = 1 
+                          LIMIT 3");
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -18,106 +42,73 @@ session_start();
     <div class="main-container">
         <header>
             <div class="img_header">
-                <a href="index.php"><img class="logo_header" src="logo.png" alt="dom_weselny"></a>
-                <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
+                <a href="index.php"><img class="logo_header" src="logo.png" alt="Dom Weselny"></a>
+                <img class="logo_txt_header" src="logo_txt.png" alt="Bursztynowy Pałac">
             </div>
             <div class="link_header">
-                <a href="sale.php" style="word-spacing: 15px">Sale</a>
-                <a href="galeria.php"style="word-spacing: 15px">Galeria</a>
-                <a href="kontakt.php"style="word-spacing: 15px">Kontakt</a>
-                <a href="opinie.php"style="word-spacing: 15px">Opinie</a>
+                <a href="sale.php">Sale</a>
+                <a href="galeria.php">Galeria</a>
+                <a href="kontakt.php">Kontakt</a>
+                <a href="opinie.php">Opinie</a>
                 
-                <?php if (isset($_SESSION['logged_in'])): ?>
-                    <span style="margin-right: 15px; color: var(--amber-darker);">Witaj, <?php echo htmlspecialchars($_SESSION['imie']); ?>!</span>
+                <?php if (isset($_SESSION['logged_in'])) : ?>
+                    <span style="margin-right: 15px; color: var(--amber-darker);">
+                        Witaj, <?php echo htmlspecialchars($_SESSION['imie'] ?? ''); ?>!
+                    </span>
                     <?php 
-                    $panel_link = '';
-                    switch($_SESSION['role']) {
-                        case 'admin':
-                            $panel_link = 'panel_admina.php';
-                            break;
-                        case 'manager':
-                            $panel_link = 'panel_managera.php';
-                            break;
-                        case 'klient':
-                            $panel_link = 'panel_klienta.php';
-                            break;
-                        case 'kelner':
-                            $panel_link = 'panel_kelnera.php';
-                            break;
-                        case 'sprzataczka':
-                            $panel_link = 'panel_sprzataczki.php';
-                            break;
-                        case 'kucharz':
-                            $panel_link = 'panel_kucharza.php';
-                            break;
-                        default:
-                            $panel_link = 'panel_klienta.php';
+                    $panel_link = 'panel_klienta.php';
+                    if (isset($_SESSION['role'])) {
+                        switch($_SESSION['role']) {
+                            case 'admin': $panel_link = 'panel_admina.php'; break;
+                            case 'manager': $panel_link = 'panel_managera.php'; break;
+                            case 'kelner': $panel_link = 'panel_kelnera.php'; break;
+                            case 'sprzataczka': $panel_link = 'panel_sprzataczki.php'; break;
+                            case 'kucharz': $panel_link = 'panel_kucharza.php'; break;
+                        }
                     }
                     ?>
                     <a href="<?php echo $panel_link; ?>" class="header-link">Mój Panel</a>
                     <a href="logout.php" class="header-link">Wyloguj</a>
-                <?php else: ?>
+                <?php else : ?>
                     <a href="login.php" class="header-link">Zaloguj się</a>
-                    <a href="login.php" class="header-link">Rejestracja</a>
+                    <a href="register.php" class="header-link">Rejestracja</a>
                 <?php endif; ?>
             </div>
         </header>
 
         <main class="main-content">
-            <!-- Sekcja powitalna - pełna szerokość -->
             <section class="hero-section">
                 <div class="hero-overlay">
                     <h1>Bursztynowy Pałac</h1>
                     <p>Twój wymarzony dzień w wyjątkowej scenerii</p>
-                    <a href="sale.html" class="hero-btn">Poznaj nasze sale</a>
+                    <a href="sale.php" class="hero-btn">Poznaj nasze sale</a>
                 </div>
             </section>
 
-            <!-- Reszta zawartości w kontenerze -->
             <div class="content-container">
-                <!-- Sekcja z salami -->
                 <section class="featured-rooms">
                     <h2>Nasze Sale</h2>
                     <p class="section-subtitle">Odkryj nasze najpopularniejsze przestrzenie</p>
                     
                     <div class="rooms-grid">
-                        <!-- Sala 1 -->
-                        <div class="room-card">
-                            <img src="s1.jpeg" alt="Sala Konferencyjna">
-                            <div class="room-info">
-                                <h3>Sala Konferencyjna</h3>
-                                <p>Idealna na spotkania biznesowe i szkolenia. Wyposażona w nowoczesny sprzęt multimedialny.</p>
-                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
+                        <?php foreach ($sale as $sala) : ?>
+                            <div class="room-card">
+                                <img src="<?php echo htmlspecialchars($sala['zdjecie'] ?? 'default.jpg'); ?>" 
+                                     alt="<?php echo htmlspecialchars($sala['nazwa_sali']); ?>">
+                                <div class="room-info">
+                                    <h3><?php echo htmlspecialchars($sala['nazwa_sali']); ?></h3>
+                                    <p><?php echo htmlspecialchars($sala['opis']); ?></p>
+                                    <a href="sale.php?id=<?php echo $sala['sala_id']; ?>" class="room-btn">Zobacz więcej</a>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Sala 2 -->
-                        <div class="room-card">
-                            <img src="s2.jpg" alt="Sala Bankietowa">
-                            <div class="room-info">
-                                <h3>Sala Bankietowa</h3>
-                                <p>Przestronna sala doskonała na wesela, przyjęcia i inne uroczystości. Może pomieścić do 150 osób.</p>
-                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Sala 3 -->
-                        <div class="room-card">
-                            <img src="s3.jpg" alt="Sala Szkoleniowa">
-                            <div class="room-info">
-                                <h3>Sala Szkoleniowa</h3>
-                                <p>Komfortowa przestrzeń do prowadzenia warsztatów i kursów. Wyposażona w wygodne fotele i flipcharty.</p>
-                                <a href="sale.html" class="room-btn">Zobacz więcej</a>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                     
                     <div class="all-rooms-link">
-                        <a href="sale.html" class="see-all-btn">Zobacz wszystkie sale</a>
+                        <a href="sale.php" class="see-all-btn">Zobacz wszystkie sale</a>
                     </div>
                 </section>
 
-                <!-- Sekcja kontaktowa -->
                 <section class="contact-section">
                     <div class="contact-container">
                         <div class="contact-info">
@@ -139,54 +130,22 @@ session_start();
                                 </div>
                             </div>
                             
-                            <a href="kontakt.html" class="contact-btn">Formularz kontaktowy</a>
+                            <a href="kontakt.php" class="contact-btn">Formularz kontaktowy</a>
                         </div>
                         
                         <div class="contact-image">
-                            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kontakt">
+                            <img src="s1.jpeg" alt="Kontakt">
                         </div>
                     </div>
                 </section>
 
-                <!-- Sekcja z opiniami -->
                 <section class="testimonials-section">
                     <h2>Opinie naszych klientów</h2>
                     <p class="section-subtitle">Poznaj doświadczenia innych par</p>
                     
-                    <div class="testimonials-grid">
-                        <!-- Opinia 1 -->
-                        <div class="testimonial-card">
-                            <div class="testimonial-header">
-                                <span class="author">Anna i Marek</span>
-                                <span class="date">15.05.2023</span>
-                            </div>
-                            <div class="rating">★★★★★</div>
-                            <p class="testimonial-text">"Wspaniałe miejsce na nasze wesele! Profesjonalna obsługa, piękna sala i pyszne jedzenie. Wszystko było idealnie zorganizowane."</p>
-                        </div>
-                        
-                        <!-- Opinia 2 -->
-                        <div class="testimonial-card">
-                            <div class="testimonial-header">
-                                <span class="author">Katarzyna i Tomasz</span>
-                                <span class="date">22.08.2023</span>
-                            </div>
-                            <div class="rating">★★★★★</div>
-                            <p class="testimonial-text">"Najlepsza decyzja jaką podjęliśmy! Cała obsługa była bardzo pomocna, a sala wyglądała magicznie. Polecamy z całego serca!"</p>
-                        </div>
-                        
-                        <!-- Opinia 3 -->
-                        <div class="testimonial-card">
-                            <div class="testimonial-header">
-                                <span class="author">Magdalena i Piotr</span>
-                                <span class="date">10.06.2023</span>
-                            </div>
-                            <div class="rating">★★★★☆</div>
-                            <p class="testimonial-text">"Piękne miejsce, wspaniała atmosfera. Jedynie parking mógłby być większy, ale to drobny szczegół w porównaniu z całą resztą."</p>
-                        </div>
-                    </div>
                     
                     <div class="all-testimonials-link">
-                        <a href="opinie.html" class="see-all-btn">Zobacz wszystkie opinie</a>
+                        <a href="opinie.php" class="see-all-btn">Zobacz wszystkie opinie</a>
                     </div>
                 </section>
             </div>
@@ -202,18 +161,20 @@ session_start();
                 <div class="footer-section">
                     <h3 class="footer-heading">Kontakt</h3>
                     <ul class="footer-links">
-                        <li><a href="tel:+48786020787" class="footer-link"><i class="fas fa-phone-alt"></i> +48 786 020 787</a></li>
-                        <li><a href="mailto:kontakt@bursztynowypalac.pl" class="footer-link"><i class="fas fa-envelope"></i> kontakt@bursztynowypalac.pl</a></li>
-                        <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ul. Weselna 123, 00-001 Warszawa</a></li>
+                        <li><a href="tel:+48786020787"><i class="fas fa-phone-alt"></i> +48 786 020 787</a></li>
+                        <li><a href="mailto:kontakt@bursztynowypalac.pl"><i class="fas fa-envelope"></i> kontakt@bursztynowypalac.pl</a></li>
+                        <li><a href="https://maps.google.com"><i class="fas fa-map-marker-alt"></i> ul. Weselna 123, Warszawa</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3 class="footer-heading">Godziny otwarcia</h3>
-                    <p class="footer-text"><i class="far fa-clock"></i> Pon-Pt: 10:00 - 20:00</p>
-                    <p class="footer-text"><i class="far fa-clock"></i> Sb-Nd: 11:00 - 18:00</p>
-                    <p class="footer-text">Zapraszamy również po godzinach po wcześniejszym umówieniu.</p>
+                    <p><i class="far fa-clock"></i> Pon-Pt: 10:00 - 20:00</p>
+                    <p><i class="far fa-clock"></i> Sb-Nd: 11:00 - 18:00</p>
                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <?php echo date('Y'); ?> Bursztynowy Pałac. Wszelkie prawa zastrzeżone.</p>
             </div>
         </footer>
     </div>

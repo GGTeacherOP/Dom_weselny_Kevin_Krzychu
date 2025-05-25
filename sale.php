@@ -1,5 +1,10 @@
 <?php
 session_start();
+require_once 'config1.php'; // Plik z połączeniem do bazy danych
+
+// Pobierz listę sal z bazy danych
+$stmt = $pdo->query("SELECT * FROM sale");
+$sale = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -58,7 +63,7 @@ session_start();
                     <a href="logout.php" class="header-link">Wyloguj</a>
                 <?php else: ?>
                     <a href="login.php" class="header-link">Zaloguj się</a>
-                    <a href="login.php" class="header-link">Rejestracja</a>
+                    <a href="register.php" class="header-link">Rejestracja</a>
                 <?php endif; ?>
             </div>
         </header>
@@ -70,69 +75,21 @@ session_start();
         </div>
         
         <div class="sale-grid">
-            <!-- Sala 1 -->
-            <div class="sale-card">
-                <img src="s1.jpeg" alt="Sala Konferencyjna" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Konferencyjna</h3>
-                    <p class="sale-description">Idealna na spotkania biznesowe i szkolenia. Wyposażona w nowoczesny sprzęt multimedialny.</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
+            <?php foreach ($sale as $sala): ?>
+                <div class="sale-card">
+                    <img src="<?php echo htmlspecialchars($sala['zdjecie'] ?? 'default_sala.jpg'); ?>" alt="<?php echo htmlspecialchars($sala['nazwa_sali']); ?>" class="sale-image">
+                    <div class="sale-content">
+                        <h3 class="sale-title"><?php echo htmlspecialchars($sala['nazwa_sali']); ?></h3>
+                        <p class="sale-description">
+                            Pojemność: <?php echo htmlspecialchars($sala['pojemnosc']); ?> osób<br>
+                            Cena: <?php echo number_format($sala['cena_podstawowa'], 2, ',', ' '); ?> PLN
+                        </p>
+                        <a href="sala_szczegoly.php?id=<?php echo $sala['sala_id']; ?>" class="sale-btn">Zobacz więcej</a>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Sala 2 -->
-            <div class="sale-card">
-                <img src="s2.jpg" alt="Sala Bankietowa" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Bankietowa</h3>
-                    <p class="sale-description">Przestronna sala doskonała na wesela, przyjęcia i inne uroczystości. Może pomieścić do 150 osób.</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
-                </div>
-            </div>
-            
-            <!-- Sala 3 -->
-            <div class="sale-card">
-                <img src="s3.jpg" alt="Sala Szkoleniowa" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Szkoleniowa</h3>
-                    <p class="sale-description">Komfortowa przestrzeń do prowadzenia warsztatów i kursów. Wyposażona w wygodne fotele i flipcharty.</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
-                </div>
-            </div>
-            
-            <!-- Sala 4 -->
-            <div class="sale-card">
-                <img src="s4.jpg" alt="Sala Kameralna" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Kameralna</h3>
-                    <p class="sale-description">Mniejsza sala idealna na spotkania w mniejszym gronie lub kameralne przyjęcia (do 30 osób).</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
-                </div>
-            </div>
-            
-            <!-- Sala 5 -->
-            <div class="sale-card">
-                <img src="s5.jpg" alt="Sala Wielofunkcyjna" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Wielofunkcyjna</h3>
-                    <p class="sale-description">Uniwersalna przestrzeń, którą można dostosować do różnych potrzeb - od spotkań po małe eventy.</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
-                </div>
-            </div>
-            
-            <!-- Sala 6 -->
-            <div class="sale-card">
-                <img src="s6.jpg" alt="Sala Prestiżowa" class="sale-image">
-                <div class="sale-content">
-                    <h3 class="sale-title">Sala Prestiżowa</h3>
-                    <p class="sale-description">Nasza najbardziej ekskluzywna przestrzeń z eleganckim wystrojem, idealna na ważne wydarzenia.</p>
-                    <a href="#" class="sale-btn">Zobacz więcej</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
-
 
     <footer class="page-footer">
             <div class="footer-content">
@@ -158,8 +115,6 @@ session_start();
                     <p class="footer-text">Zapraszamy również po godzinach po wcześniejszym umówieniu.</p>
                 </div>
             </div>
-            
-            
         </footer>
 </body>
 <script src="index.js"></script>

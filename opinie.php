@@ -42,7 +42,7 @@ $result_opinie = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opinie - Bursztynowy Pałac</title>
     <link rel="stylesheet" href="opinie-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <script src="script-opinie.js" defer></script>
+    <script src="script-opinie.js" defer></script>
 </head>
 <body>
     <div class="top-border"></div>
@@ -104,11 +104,11 @@ $result_opinie = $conn->query($sql);
                 <input type="hidden" id="ocena" name="ocena" value="0" required>
                 <textarea id="tresc" name="tresc" placeholder="Twoja opinia..." required minlength="10" maxlength="500"></textarea>
                 <button type="submit" name="submit_opinion" id="submit-opinion">
-    <span class="btn-text">Dodaj opinię</span>
-    <span class="btn-loading" style="display:none;">
-        <i class="fas fa-spinner fa-spin"></i> Wysyłanie...
-    </span>
-</button>
+                    <span class="btn-text">Dodaj opinię</span>
+                    <span class="btn-loading" style="display:none;">
+                        <i class="fas fa-spinner fa-spin"></i> Wysyłanie...
+                    </span>
+                </button>
             </form>
         </div>
         <?php else : ?>
@@ -159,4 +159,5 @@ $result_opinie = $conn->query($sql);
         </footer>
     </div>
 </body>
+s
 </html>

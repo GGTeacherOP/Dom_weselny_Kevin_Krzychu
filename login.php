@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 }
 
 // Obsługa rejestracji
+// Obsługa rejestracji
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -52,14 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $stmt = $pdo->prepare("INSERT INTO uzytkownicy (email, haslo, imie, nazwisko, telefon, adres, rola) VALUES (?, ?, ?, ?, ?, ?, 'klient')");
         $stmt->execute([$email, $password, $imie, $nazwisko, $telefon, $adres]);
         
-        // Automatyczne logowanie po rejestracji
-        $user_id = $pdo->lastInsertId();
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['email'] = $email;
-        $_SESSION['role'] = 'klient';
-        $_SESSION['logged_in'] = true;
+        // Zamiast automatycznego logowania, wyświetl komunikat i przełącz na zakładkę logowania
+        $registration_success = "Konto zostało pomyślnie założone! Możesz się teraz zalogować.";
         
-        header("Location: index.php"); // Zmiana z index.html na index.php
+        // Ustaw flagę, która spowoduje przełączenie na zakładkę logowania
+        $_SESSION['show_login_tab'] = true;
+        
+        // Przeładuj stronę, aby wyświetlić komunikat
+        header("Location: login.php");
         exit();
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
@@ -301,10 +302,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             <img class="logo_txt_header" src="logo_txt.png" alt="dom_weselny_txt">
         </div>
         <div class="link_header">
-            <a href="sale.html" class="header-link">Sale</a>
-            <a href="galeria.html" class="header-link">Galeria</a>
-            <a href="kontakt.html" class="header-link">Kontakt</a>
-            <a href="opinie.html" class="header-link">Opinie</a>
+            <a href="sale.php" class="header-link">Sale</a>
+            <a href="galeria.php" class="header-link">Galeria</a>
+            <a href="kontakt.php" class="header-link">Kontakt</a>
+            <a href="opinie.php" class="header-link">Opinie</a>
         </div>
     </header>
 
@@ -392,26 +393,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     </footer>
 
     <script>
-        function switchTab(tabName) {
-            // Zmiana aktywnych zakładek
-            document.querySelectorAll('.auth-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`.auth-tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
-            
-            // Zmiana aktywnych formularzy
-            document.querySelectorAll('.auth-form').forEach(form => {
-                form.classList.remove('active');
-            });
-            document.getElementById(`${tabName}Form`).classList.add('active');
-        }
+    function switchTab(tabName) {
+        // Zmiana aktywnych zakładek
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`.auth-tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
         
-        // Jeśli wystąpił błąd rejestracji, automatycznie przełącz na zakładkę rejestracji
-        <?php if (isset($registration_error) || isset($registration_success)): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                switchTab('register');
-            });
+        // Zmiana aktywnych formularzy
+        document.querySelectorAll('.auth-form').forEach(form => {
+            form.classList.remove('active');
+        });
+        document.getElementById(`${tabName}Form`).classList.add('active');
+    }
+    
+    // Przełącz na odpowiednią zakładkę w zależności od sytuacji
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (isset($registration_error)): ?>
+            switchTab('register');
+        <?php elseif (isset($_SESSION['show_login_tab'])): ?>
+            switchTab('login');
+            <?php unset($_SESSION['show_login_tab']); ?>
         <?php endif; ?>
-    </script>
+    });
+</script>
 </body>
 </html>

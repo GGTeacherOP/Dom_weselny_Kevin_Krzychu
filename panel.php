@@ -49,6 +49,10 @@ switch ($user['rola']) {
                 (SELECT COUNT(*) FROM zadania WHERE status != 'zakonczone') as pending_tasks
         ")->fetch(PDO::FETCH_ASSOC);
         $additional_data['stats'] = $stats;
+        
+        // Pobranie wszystkich tabel do zarządzania
+        $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+        $additional_data['tables'] = $tables;
         break;
         
     case 'manager':
@@ -93,6 +97,45 @@ switch ($user['rola']) {
         $stmt->execute([$user_id]);
         $additional_data['moje_wydarzenia'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         break;
+}
+
+// Obsługa aktualizacji danych użytkownika
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
+    $imie = $_POST['imie'];
+    $nazwisko = $_POST['nazwisko'];
+    $email = $_POST['email'];
+    $telefon = $_POST['telefon'];
+    $adres = $_POST['adres'];
+    
+    $stmt = $pdo->prepare("UPDATE uzytkownicy SET imie = ?, nazwisko = ?, email = ?, telefon = ?, adres = ? WHERE uzytkownik_id = ?");
+    $stmt->execute([$imie, $nazwisko, $email, $telefon, $adres, $user_id]);
+    
+    // Odśwież dane użytkownika
+    $stmt = $pdo->prepare("SELECT * FROM uzytkownicy WHERE uzytkownik_id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    $success_message = "Dane zostały zaktualizowane!";
+}
+
+// Obsługa zmiany hasła
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+    
+    if (password_verify($current_password, $user['haslo'])) {
+        if ($new_password === $confirm_password) {
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("UPDATE uzytkownicy SET haslo = ? WHERE uzytkownik_id = ?");
+            $stmt->execute([$hashed_password, $user_id]);
+            $password_success = "Hasło zostało zmienione!";
+        } else {
+            $password_error = "Nowe hasła nie są identyczne!";
+        }
+    } else {
+        $password_error = "Bieżące hasło jest nieprawidłowe!";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -183,9 +226,6 @@ switch ($user['rola']) {
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             flex: 1;
             min-width: 300px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
         
         .user-avatar {
@@ -194,6 +234,7 @@ switch ($user['rola']) {
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--amber);
+            display: none; /* Ukrywamy awatar */
         }
         
         .user-info {
@@ -268,11 +309,13 @@ switch ($user['rola']) {
         
         .table-responsive {
             overflow-x: auto;
+            margin-bottom: 20px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
         
         th, td {
@@ -343,6 +386,8 @@ switch ($user['rola']) {
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            margin-right: 5px;
+            margin-bottom: 5px;
         }
         
         .btn-primary {
@@ -364,6 +409,15 @@ switch ($user['rola']) {
             background-color: #5a6268;
         }
         
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
         .logout-btn {
             background-color: var(--danger);
             color: white;
@@ -379,6 +433,37 @@ switch ($user['rola']) {
         
         .logout-btn:hover {
             background-color: #c82333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .alert {
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
         
         .page-footer {
@@ -471,7 +556,6 @@ switch ($user['rola']) {
     <main>
         <div class="panel-container">
             <div class="welcome-section">
-                <img src="avatars/<?php echo $user_id; ?>.jpg" alt="Awatar" class="user-avatar" onerror="this.src='avatars/default.jpg'">
                 <div class="user-info">
                     <h1 class="user-name"><?php echo htmlspecialchars($user['imie'] . ' ' . htmlspecialchars($user['nazwisko'])) ?></h1>
                     <span class="user-role"><?php echo ucfirst($user['rola']); ?></span>
@@ -584,8 +668,28 @@ switch ($user['rola']) {
             </div>
             
             <div class="card">
-                <h2 class="section-title">Ostatnie aktywności</h2>
-                <p>Tutaj będzie wyświetlany log ostatnich aktywności w systemie.</p>
+                <h2 class="section-title">Tabele w systemie</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa tabeli</th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($additional_data['tables'] as $table): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($table); ?></td>
+                                    <td>
+                                        <a href="admin/table_view.php?table=<?php echo $table; ?>" class="action-btn btn-primary">Przeglądaj</a>
+                                        <a href="admin/table_edit.php?table=<?php echo $table; ?>" class="action-btn btn-secondary">Edytuj</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
         <?php elseif ($user['rola'] === 'manager'): ?>
@@ -793,36 +897,65 @@ switch ($user['rola']) {
         
         <div class="card">
             <h2 class="section-title">Moje dane</h2>
-            <form>
+            <?php if (isset($success_message)): ?>
+                <div class="alert alert-success"><?php echo $success_message; ?></div>
+            <?php endif; ?>
+            
+            <form method="post">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                     <div>
                         <label>Imię</label>
-                        <input type="text" value="<?php echo htmlspecialchars($user['imie']); ?>" class="form-control" style="width: 100%;">
+                        <input type="text" name="imie" value="<?php echo htmlspecialchars($user['imie']); ?>" class="form-control">
                     </div>
                     <div>
                         <label>Nazwisko</label>
-                        <input type="text" value="<?php echo htmlspecialchars($user['nazwisko']); ?>" class="form-control" style="width: 100%;">
+                        <input type="text" name="nazwisko" value="<?php echo htmlspecialchars($user['nazwisko']); ?>" class="form-control">
                     </div>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                     <div>
                         <label>Email</label>
-                        <input type="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="form-control" style="width: 100%;">
+                        <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="form-control">
                     </div>
                     <div>
                         <label>Telefon</label>
-                        <input type="tel" value="<?php echo htmlspecialchars($user['telefon']); ?>" class="form-control" style="width: 100%;">
+                        <input type="tel" name="telefon" value="<?php echo htmlspecialchars($user['telefon']); ?>" class="form-control">
                     </div>
                 </div>
                 
                 <div style="margin-bottom: 20px;">
                     <label>Adres</label>
-                    <input type="text" value="<?php echo htmlspecialchars($user['adres']); ?>" class="form-control" style="width: 100%;">
+                    <input type="text" name="adres" value="<?php echo htmlspecialchars($user['adres']); ?>" class="form-control">
                 </div>
                 
-                <button type="button" class="action-btn btn-primary">Zmień hasło</button>
-                <button type="submit" class="action-btn btn-primary">Zapisz zmiany</button>
+                <button type="submit" name="update_profile" class="action-btn btn-primary">Zapisz zmiany</button>
+            </form>
+            
+            <h3 style="margin-top: 30px;">Zmiana hasła</h3>
+            <?php if (isset($password_success)): ?>
+                <div class="alert alert-success"><?php echo $password_success; ?></div>
+            <?php elseif (isset($password_error)): ?>
+                <div class="alert alert-danger"><?php echo $password_error; ?></div>
+            <?php endif; ?>
+            
+            <form method="post">
+                <div class="form-group">
+                    <label>Aktualne hasło</label>
+                    <input type="password" name="current_password" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nowe hasło</label>
+                    <input type="password" name="new_password" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Potwierdź nowe hasło</label>
+                    <input type="password" name="confirm_password" class="form-control" required>
+                </div>
+                
+                <button type="submit" name="change_password" class="action-btn btn-primary">Zmień hasło</button>
             </form>
         </div>
         
@@ -882,12 +1015,6 @@ switch ($user['rola']) {
                 console.error('Error:', error);
                 alert('Wystąpił błąd podczas aktualizacji zadania');
             });
-        }
-        
-        // Funkcja do pokazywania/ukrywania formularza zmiany hasła
-        function togglePasswordForm() {
-            const form = document.getElementById('passwordForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>

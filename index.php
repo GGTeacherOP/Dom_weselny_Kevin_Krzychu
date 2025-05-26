@@ -59,7 +59,7 @@ $opinie = fetchData($conn, "SELECT o.*, u.imie, u.nazwisko
                     $panel_link = 'panel_klienta.php';
                     if (isset($_SESSION['role'])) {
                         switch($_SESSION['role']) {
-                            case 'admin': $panel_link = 'panel_admina.php'; break;
+                            case 'admin': $panel_link = 'panel.php'; break;
                             case 'manager': $panel_link = 'panel_managera.php'; break;
                             case 'kelner': $panel_link = 'panel_kelnera.php'; break;
                             case 'sprzataczka': $panel_link = 'panel_sprzataczki.php'; break;

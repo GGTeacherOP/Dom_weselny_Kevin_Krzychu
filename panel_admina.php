@@ -2,7 +2,7 @@
 session_start();
 
 // Sprawdzenie czy użytkownik jest zalogowany i ma uprawnienia admina
-if (!isset($_SESSION['logged_in']) {
+if (!isset($_SESSION['logged_in'])) {
     header("Location: login.php");
     exit();
 }

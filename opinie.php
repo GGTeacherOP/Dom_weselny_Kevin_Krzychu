@@ -63,13 +63,13 @@ $result_opinie = $conn->query($sql);
                     <span class="welcome-msg">Witaj, <?= htmlspecialchars($_SESSION['imie']) ?>!</span>
                     <a href="<?= 
                         match($_SESSION['role']) {
-                            'admin' => 'panel_admina.php',
-                            'manager' => 'panel_managera.php',
-                            'klient' => 'panel_klienta.php',
-                            'kelner' => 'panel_kelnera.php',
-                            'sprzataczka' => 'panel_sprzataczki.php',
-                            'kucharz' => 'panel_kucharza.php',
-                            default => 'panel_klienta.php'
+                            'admin' => 'panel.php',
+                            'manager' => 'panel.php',
+                            'klient' => 'panel.php',
+                            'kelner' => 'panel.php',
+                            'sprzataczka' => 'panel.php',
+                            'kucharz' => 'panel.php',
+                            default => 'panel.php'
                         } 
                     ?>">Mój Panel</a>
                     <a href="logout.php">Wyloguj</a>

@@ -1,6 +1,6 @@
 <?php
 // config.php
-$servername = "127.0.0.1:3307";
+$servername = "localhost";
 $username = "root";  // domyślnie w XAMPP to 'root'
 $password = "";      // domyślnie puste w XAMPP
 $dbname = "dom_weselny";

@@ -2,7 +2,7 @@
 session_start();
 
 // Połączenie z bazą danych
-$host = '127.0.0.1:3307';
+$host = 'localhost';
 $dbname = 'dom_weselny';
 $username = 'root';
 $password = '';

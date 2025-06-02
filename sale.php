@@ -38,25 +38,25 @@ $sale = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $panel_link = '';
                     switch($_SESSION['role']) {
                         case 'admin':
-                            $panel_link = 'panel_admina.php';
+                            $panel_link = 'panel.php';
                             break;
                         case 'manager':
-                            $panel_link = 'panel_managera.php';
+                            $panel_link = 'panel.php';
                             break;
                         case 'klient':
-                            $panel_link = 'panel_klienta.php';
+                            $panel_link = 'panel.php';
                             break;
                         case 'kelner':
-                            $panel_link = 'panel_kelnera.php';
+                            $panel_link = 'panel.php';
                             break;
                         case 'sprzataczka':
-                            $panel_link = 'panel_sprzataczki.php';
+                            $panel_link = 'panel.php';
                             break;
                         case 'kucharz':
-                            $panel_link = 'panel_kucharza.php';
+                            $panel_link = 'panel.php';
                             break;
                         default:
-                            $panel_link = 'panel_klienta.php';
+                            $panel_link = 'panel.php';
                     }
                     ?>
                     <a href="<?php echo $panel_link; ?>" class="header-link">Mój Panel</a>

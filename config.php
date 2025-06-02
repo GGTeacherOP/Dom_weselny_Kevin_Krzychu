@@ -1,6 +1,6 @@
 <?php
 // Dane do połączenia z bazą danych
-$host = '127.0.0.1:3307';
+$host = 'localhost';
 $dbname = 'dom_weselny';
 $username = 'root'; // Zmień na swojego użytkownika
 $password = ''; // Zmień na swoje hasło

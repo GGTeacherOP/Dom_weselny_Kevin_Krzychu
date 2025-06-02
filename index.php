@@ -60,10 +60,10 @@ $opinie = fetchData($conn, "SELECT o.*, u.imie, u.nazwisko
                     if (isset($_SESSION['role'])) {
                         switch($_SESSION['role']) {
                             case 'admin': $panel_link = 'panel.php'; break;
-                            case 'manager': $panel_link = 'panel_managera.php'; break;
-                            case 'kelner': $panel_link = 'panel_kelnera.php'; break;
-                            case 'sprzataczka': $panel_link = 'panel_sprzataczki.php'; break;
-                            case 'kucharz': $panel_link = 'panel_kucharza.php'; break;
+                            case 'manager': $panel_link = 'panel.php'; break;
+                            case 'kelner': $panel_link = 'panel.php'; break;
+                            case 'sprzataczka': $panel_link = 'panel.php'; break;
+                            case 'kucharz': $panel_link = 'panel.php'; break;
                         }
                     }
                     ?>

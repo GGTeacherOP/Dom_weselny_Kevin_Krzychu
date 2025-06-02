@@ -1,6 +1,6 @@
 <?php
 // config.php
-$host = '127.0.0.1:3307';
+$host = 'localhost';
 $db   = 'dom_weselny';
 $user = 'root';
 $pass = '';
